@@ -19,12 +19,14 @@ routes.get('/api', (req,res)=>{
 
 
 
-routes.post('/', (req,res)=>{
+
+routes.post('/shop', (req,res)=>{
     req.getConnection((err , conn)=>{
         try {
-            conn.query('INSERT INTO products (ref , nombre , price , initial_stock , entry , output) values (02,"costillas de cerdo", 18000 , 500 , 100 , 300)',(err , rows)=>{
+            console.log(req.body)
+            conn.query('INSERT INTO shoppingcart set ?',[req.body],(err , rows)=>{
                 try {
-                    res.json(rows);
+                    res.send('Registro exitoso');
                 } catch (err) {
                     return res.send(err);
                 }
@@ -35,4 +37,4 @@ routes.post('/', (req,res)=>{
     })
 })
 
-module.exports = routes ;
+module.exports = routes;
